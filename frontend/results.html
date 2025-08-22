@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Results - Online Voting</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Voting Results</h2>
+  <ul id="results"></ul>
+
+  <script>
+    async function loadResults() {
+      const res = await fetch("http://127.0.0.1:5000/api/results");
+      const candidates = await res.json();
+      const list = document.getElementById("results");
+      list.innerHTML = "";
+      candidates.forEach(c => {
+        const li = document.createElement("li");
+        li.innerText = `${c.name} → ${c.votes} votes`;
+        list.appendChild(li);
+      });
+    }
+
+    loadResults();
+    setInterval(loadResults, 5000); // auto-refresh
+  </script>
+</body>
+</html>
