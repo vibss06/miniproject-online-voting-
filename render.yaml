@@ -9,8 +9,9 @@ services:
     startCommand: "gunicorn app:app"
 
   # --- Frontend (Static site) ---
-  - type: static
+  - type: web
     name: voting-frontend
+    env: static
     rootDir: frontend
     plan: free
     buildCommand: ""
