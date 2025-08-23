@@ -2,40 +2,23 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# -------------------------
-# Voter model
-# -------------------------
 class Voter(db.Model):
+    __tablename__ = "voter"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)  # (can hash later)
+    password = db.Column(db.String(200), nullable=False)  # (hash later)
 
-    def __repr__(self):
-        return f"<Voter {self.username}>"
-
-
-# -------------------------
-# Candidate model
-# -------------------------
 class Candidate(db.Model):
+    __tablename__ = "candidate"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     party = db.Column(db.String(100), nullable=False)
-    votes = db.relationship("Vote", backref="candidate", lazy=True)
+    # votes relationship is optional for this simple app
 
-    def __repr__(self):
-        return f"<Candidate {self.name}>"
-
-
-# -------------------------
-# Vote model
-# -------------------------
 class Vote(db.Model):
+    __tablename__ = "vote"
     id = db.Column(db.Integer, primary_key=True)
-    voter_id = db.Column(db.Integer, db.ForeignKey("voter.id"), nullable=False)
+    voter_id = db.Column(db.Integer, db.ForeignKey("voter.id"), unique=True, nullable=False)  # one vote per voter
     candidate_id = db.Column(db.Integer, db.ForeignKey("candidate.id"), nullable=False)
-
-    def __repr__(self):
-        return f"<Vote Voter={self.voter_id} Candidate={self.candidate_id}>"
