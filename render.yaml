@@ -1,0 +1,17 @@
+services:
+  # --- Backend (Flask) ---
+  - type: web
+    name: voting-backend
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+
+  # --- Frontend (Static site) ---
+  - type: static
+    name: voting-frontend
+    rootDir: frontend
+    plan: free
+    buildCommand: ""
+    staticPublishPath: "."
