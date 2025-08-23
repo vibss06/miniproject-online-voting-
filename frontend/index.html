@@ -1,42 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Online Voting System</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <title>Signup • Online Voting</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h2>Signup</h2>
-    <form id="signupForm">
-        <input type="text" id="signupName" placeholder="Full Name" required><br>
-        <input type="email" id="signupEmail" placeholder="Email" required><br>
-        <input type="text" id="signupUsername" placeholder="Username" required><br>
-        <input type="password" id="signupPassword" placeholder="Password" required><br>
-        <button type="submit">Signup</button>
+  <nav>
+    <a href="index.html">Signup</a>
+    <a href="login.html">Login</a>
+    <a href="admin.html">Admin</a>
+    <a href="results.html">Results</a>
+  </nav>
+  <div class="container">
+    <h1>Signup</h1>
+    <form id="signup-form" class="card">
+      <input id="s-name" type="text" placeholder="Full Name" required />
+      <input id="s-email" type="email" placeholder="Email" required />
+      <input id="s-username" type="text" placeholder="Username" required />
+      <input id="s-password" type="password" placeholder="Password" required />
+      <button type="submit">Create Account</button>
     </form>
-
-    <script>
-        document.getElementById("signupForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-
-            const data = {
-                name: document.getElementById("signupName").value,
-                email: document.getElementById("signupEmail").value,
-                username: document.getElementById("signupUsername").value,
-                password: document.getElementById("signupPassword").value
-            };
-
-            fetch("http://127.0.0.1:5000/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(data => {
-                alert(data.message || "Signup done!");
-            })
-            .catch(err => console.error("Error:", err));
-        });
-    </script>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
