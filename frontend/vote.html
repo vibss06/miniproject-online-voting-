@@ -1,43 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-  <title>Vote - Online Voting</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <title>Vote • Online Voting</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>Cast Your Vote</h2>
-  <div id="candidates"></div>
-
+  <nav>
+    <a href="login.html">Login</a>
+    <a href="vote.html">Vote</a>
+    <a href="results.html">Results</a>
+  </nav>
+  <div class="container">
+    <h1>Cast Your Vote</h1>
+    <form id="vote-form" class="card">
+      <label for="cand-select">Choose Candidate</label>
+      <select id="cand-select"></select>
+      <button type="submit">Submit Vote</button>
+    </form>
+    <div class="card">
+      <small>Logged in as: <span id="whoami"></span></small>
+    </div>
+  </div>
   <script>
-    async function loadCandidates() {
-      const res = await fetch("http://127.0.0.1:5000/api/results");
-      const candidates = await res.json();
-      const container = document.getElementById("candidates");
-      candidates.forEach(c => {
-        const btn = document.createElement("button");
-        btn.innerText = `${c.name} (Votes: ${c.votes})`;
-        btn.onclick = () => vote(c.name);
-        container.appendChild(btn);
-        container.appendChild(document.createElement("br"));
-      });
-    }
-
-    async function vote(candidateName) {
-      const voterId = localStorage.getItem("voterId");
-      const res = await fetch("http://127.0.0.1:5000/api/results");
-      const candidates = await res.json();
-      const candidate = candidates.find(c => c.name === candidateName);
-
-      const response = await fetch("http://127.0.0.1:5000/api/vote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ voterId: voterId, candidateId: candidate.id })
-      });
-      const data = await response.json();
-      alert(data.message);
-    }
-
-    loadCandidates();
+    document.addEventListener("DOMContentLoaded", () => {
+      const name = localStorage.getItem("voter_name") || "(not logged in)";
+      document.getElementById("whoami").textContent = name;
+    });
   </script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
+
