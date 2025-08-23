@@ -1,15 +1,9 @@
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 20px;
-}
-
-input, button {
-  margin: 5px;
-  padding: 8px;
-  width: 200px;
-}
-
-button {
-  cursor: pointer;
-}
+body { font-family: Arial, sans-serif; margin: 24px; }
+.container { max-width: 520px; margin: auto; }
+input, select, button { padding: 10px; margin: 6px 0; width: 100%; }
+.card { border: 1px solid #ddd; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+h1, h2 { margin-bottom: 8px; }
+a { color: #0a58ca; text-decoration: none; }
+nav a { margin-right: 12px; }
+.list { padding-left: 0; list-style: none; }
+.list li { padding: 8px 0; border-bottom: 1px solid #eee; }
